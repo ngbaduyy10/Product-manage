@@ -1,0 +1,6 @@
+mixin alert-success
+    - if (messages.info)
+        .message.info(success-alert)
+            div(class="alert alert-success")
+                div #{messages.info}
+                button.btn-close(type='button', aria-label='Close' close-alert)

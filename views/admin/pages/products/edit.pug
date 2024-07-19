@@ -1,0 +1,32 @@
+extends ../../layout/layout.pug
+
+block main
+    h1.mb-4 Edit Product
+    form(
+        action='?_method=PATCH'
+        method='POST'
+        enctype="multipart/form-data"
+        form-edit-product
+    )
+        .mb-3
+            label.form-label(for='title') Title
+            input#title.form-control(type='text' name='title' value=product.title required)
+        .mb-3
+            label.form-label(for='description') Description
+            textarea#description.form-control(rows='4' name='description' required) #{product.description}
+        .row.mb-3
+            .col
+                label.form-label(for='price') Price
+                input#price.form-control(type='number' min='0' name='price' value=product.price required)
+            .col
+                label.form-label(for='discountPercentage') Discount Percentage
+                input#discountPercentage.form-control(type='number' min='0' max='100' name='discountPercentage' value=product.discountPercentage required)
+        .mb-3(upload-image)
+            label.form-label(for='thumbnail') Thumbnail
+            input#thumbnail.form-control(type='file' name='thumbnail' accept="image/*" upload-image-input)
+            .image
+                img(src=product.thumbnail upload-image-preview alt='Thumbnail' height='100')
+                button.btn-close(type='button', aria-label='Close' close-image-preview)
+
+        button.btn.btn-success(type='submit') Update
+

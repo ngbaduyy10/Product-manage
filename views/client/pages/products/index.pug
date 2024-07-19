@@ -1,0 +1,12 @@
+extends ../../layout/layoutDefault
+
+block content
+    each item in products
+        .col-3.mb-3(style='display: inline-block;')
+            .card.m-2(style='height: 650px;')
+                img.card-img-top(src=item.thumbnail, alt=item.title style='aspect-ratio: 1/1' )
+                .card-body
+                    a(href=`/products/detail/${item.slug}` style='text-decoration: none; color: black;')
+                        h2.card-title #{item.title}
+                    h4.card-text #{item.price}$
+                    p.card-text #{item.description}

@@ -1,0 +1,16 @@
+extends ../../layout/layoutDefault.pug
+
+block content
+    .container.mt-5.mb-5
+        .card
+            .row
+                .col-md-3.d-flex.align-items-center.justify-content-center
+                    img#main-image(src=product.thumbnail, width='250')
+                .col-md-6
+                    .product.p-4
+                        .mt-4.mb-3
+                            h2.text-uppercase #{product.title}
+                            h4.act-price Price: #{product.price}$
+                            h4.dis-percentage Discount Percentage: #{product.discountPercentage}%
+                        p.about #{product.description}
+                        a.btn.btn-primary.text-uppercase.mr-2.px-4 Add to cart
