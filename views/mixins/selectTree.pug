@@ -1,0 +1,5 @@
+mixin selectTree(tree, level)
+    each item in tree
+        option(value=item.id) #{ '-- '.repeat(level) } #{ item.title }
+        if item.children && item.children.length > 0
+            +selectTree(item.children, level + 1)

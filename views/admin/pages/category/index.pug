@@ -1,0 +1,20 @@
+extends ../../layout/layout.pug
+include ../../../mixins/alert.pug
+include ../../../mixins/tableTree.pug
+
+block main
+    +alert-success
+
+    a.btn.btn-outline-success(type='button' href='category/create' create-category) Add new category
+
+    table.table.table-hover.tabble-sm(checkbox-multi)
+        thead.thead-light
+            tr
+                th(scope='col')
+                    input(type='checkbox' id='check-all')
+                th(scope='col') #
+                th(scope='col') Thumbnail
+                th(scope='col') Title
+                th(scope='col') Action
+        tbody
+            +tableTree(tree)
