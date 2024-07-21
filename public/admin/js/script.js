@@ -116,3 +116,40 @@ if (uploadImage) {
     });
 }
 //End Upload Image Preview
+
+
+//Sort
+const sort = document.querySelector('[sort]');
+if (sort) {
+    const url = new URL(window.location.href);
+    const sortSelect = sort.querySelector('[sort-select]');
+    const sortClear = sort.querySelector('[sort-clear]');
+
+    sortSelect.addEventListener('change', ()=> {
+        if (sortSelect.value !== '') {
+            const [sortKey, sortValue] = sortSelect.value.split('-');
+            url.searchParams.set('sortKey', sortKey);
+            url.searchParams.set('sortValue', sortValue);
+        } else {
+            url.searchParams.delete('sortKey');
+            url.searchParams.delete('sortValue');
+        }
+        window.location.href = url.href;
+    });
+
+    const sortKey = url.searchParams.get('sortKey');
+    const sortValue = url.searchParams.get('sortValue');
+    if (sortKey && sortValue) {
+        const selectedValue = sortSelect.querySelector(`option[value="${sortKey}-${sortValue}"]`);
+        selectedValue.selected = true;
+    }
+
+    sortClear.addEventListener('click', ()=> {
+        url.searchParams.delete('sortKey');
+        url.searchParams.delete('sortValue');
+        window.location.href = url.href;
+        const selectedValue = sortSelect.querySelector(`option[value=""]`);
+        selectedValue.selected = true;
+    });
+}
+//End Sort

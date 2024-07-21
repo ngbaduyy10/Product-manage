@@ -15,7 +15,14 @@ module.exports.index = async (req, res) => {
         currentPage: parseInt(req.query.page) || 1,
     }, count);
 
-    const products = await Product.find(find).limit(pagination.limit).skip(pagination.skip).sort({ createdAt: -1 });
+    let sort = {};
+    if (req.query.sortKey && req.query.sortValue) {
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+        sort.createdAt = -1;
+    }
+
+    const products = await Product.find(find).limit(pagination.limit).skip(pagination.skip).sort(sort);
 
     res.render('./admin/pages/products/index', {
         pageTitle: 'Product',

@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
@@ -10,7 +11,7 @@ const database = require('./config/database');
 database.connect();
 
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const clientRoutes = require('./routes/client/index.route');
 const adminRoutes = require('./routes/admin/index.route');
@@ -29,6 +30,9 @@ app.use(session({
     cookie: { maxAge: 60000 }
 }));
 app.use(flash());
+
+const path = require('path');
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');

@@ -9,7 +9,21 @@ block main
         input.form-control.me-2(type='search', placeholder='Search', aria-label='Search' name='keyword' value=keyword required style='width: 25%')
         button.btn.btn-outline-success(type='submit') Search
 
-    a.btn.btn-outline-success(type='button' href='products/create' create-product) Add new product
+    .row
+        .col-8
+            .card.mb-3(style='width: 40%')
+                .card-header
+                    span Sort
+                .card-body.d-flex(sort)
+                    select.form-select(name='sort' sort-select)
+                        option(value='') Default
+                        option(value='price-desc') Price Desc
+                        option(value='price-asc') Price Asc
+                        option(value='title-desc') Title Desc
+                        option(value='title-asc') Title Asc
+                    button.btn.btn-outline-danger(sort-clear) Clear
+        .col-4
+            a.btn.btn-outline-success(type='button' href='products/create' create-product) Add new product
 
     form.d-flex.mb-3.form-delete-all(action='products/delete-multi?_method=DELETE' method='POST')
         input.form-control.d-none(type='text' name='id' id-delete-multi style='width: 25%')
