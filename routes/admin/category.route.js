@@ -19,4 +19,14 @@ router.post(
     categoryController.createPost
 );
 
+router.get('/edit/:id', categoryController.edit);
+
+router.patch(
+    '/edit/:id',
+    upload.single('thumbnail'),
+    middleware.uploadCloud,
+    validate.createPost,
+    categoryController.editPatch
+);
+
 module.exports = router;

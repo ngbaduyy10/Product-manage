@@ -1,4 +1,5 @@
 extends ../../layout/layout.pug
+include ../../../mixins/selectTree.pug
 
 block main
     h1.mb-4 Edit Product
@@ -12,8 +13,13 @@ block main
             label.form-label(for='title') Title
             input#title.form-control(type='text' name='title' value=product.title required)
         .mb-3
+            label.form-label(for='category') Category
+            select#category.form-select(name='productCategory')
+                option(value='') -- Select Category --
+                +selectTree(tree, 0, product.productCategory)
+        .mb-3
             label.form-label(for='description') Description
-            textarea#description.form-control(rows='4' name='description' required) #{product.description}
+            textarea#description.form-control(rows='4' name='description') #{product.description}
         .row.mb-3
             .col
                 label.form-label(for='price') Price

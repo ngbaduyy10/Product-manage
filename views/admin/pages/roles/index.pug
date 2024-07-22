@@ -1,0 +1,28 @@
+extends ../../layout/layout.pug
+include ../../../mixins/alert.pug
+
+block main
+    +alert-success
+
+    a.btn.btn-outline-success(type='button' href='roles/create') Add new roles
+
+    table.table.table-hover.tabble-sm(checkbox-multi)
+        thead.thead-light
+            tr
+                th(scope='col')
+                    input(type='checkbox' id='check-all')
+                th(scope='col') #
+                th(scope='col') Title
+                th(scope='col') Description
+                th(scope='col') Action
+        tbody
+            each item, index in roles
+                tr
+                    td
+                        input(type='checkbox' class='check-item' data-id=item.id)
+                    td #{index + 1}
+                    td #{item.title}
+                    td !{item.description}
+                    td
+                        a.btn.btn-primary(href=`roles/edit/${item.id}`) Edit
+                        button.btn.btn-danger(button-delete data-id=item.id) Delete

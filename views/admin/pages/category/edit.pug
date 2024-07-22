@@ -4,27 +4,26 @@ include ../../../mixins/selectTree.pug
 block main
     h1.mb-4 Create Category
     form(
-        action='create'
+        action=`${data.id}?_method=PATCH`
         method='POST'
         enctype="multipart/form-data"
     )
         .mb-3
             label.form-label(for='title') Title
-            input#title.form-control(type='text' name='title' required)
+            input#title.form-control(type='text' name='title' value=data.title required)
         .mb-3
             label.form-label(for='parentId') Parent Category
             select#parentId.form-select(name='parentId')
                 option(value='') -- Select Parent Category --
-                +selectTree(tree, 0, '')
+                +selectTree(tree, 0, data.parentId)
         .mb-3
             label.form-label(for='description') Description
-            textarea#description.form-control(rows='4' name='description')
+            textarea#description.form-control(rows='4' name='description') #{data.description}
         .mb-3(upload-image)
             label.form-label(for='thumbnail') Thumbnail
-            input#thumbnail.form-control(type='file' name='thumbnail' accept="image/*" required upload-image-input)
+            input#thumbnail.form-control(type='file' name='thumbnail' accept="image/*" upload-image-input)
             .image
-                img(src='' upload-image-preview alt='Thumbnail' height='100')
-                button.btn-close.d-none(type='button', aria-label='Close' close-image-preview)
+                img(src=data.thumbnail upload-image-preview alt='Thumbnail' height='100')
+                button.btn-close(type='button', aria-label='Close' close-image-preview)
 
-        button.btn.btn-success(type='submit') Create
-
+        button.btn.btn-success(type='submit') Update

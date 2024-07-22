@@ -9,7 +9,7 @@ mixin tableTree(tree)
             td #{item.title}
             td
                 a.btn.btn-warning(href=`#`) Detail
-                a.btn.btn-primary(href=`#`) Edit
+                a.btn.btn-primary(href=`category/edit/${item.id}`) Edit
                 button.btn.btn-danger(button-delete data-id=item.id) Delete
         if item.children && item.children.length > 0
             +tableTree(item.children)

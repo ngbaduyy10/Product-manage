@@ -1,4 +1,6 @@
 const Product = require('../../models/product.model');
+const Category = require('../../models/category.model');
+const createTree = require('../../helpers/createTree');
 const searchHelper = require('../../helpers/searchHelper');
 const paginationHelper = require('../../helpers/paginationHelper');
 
@@ -46,9 +48,13 @@ module.exports.deleteMulti = async (req, res) => {
     res.redirect("back");
 }
 
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+    const category = await Category.find({deleted: false});
+    const tree = createTree.tree(category);
+
     res.render('./admin/pages/products/create', {
         pageTitle: 'Create Product',
+        tree: tree,
     });
 }
 
@@ -64,9 +70,13 @@ module.exports.createPost = async (req, res) => {
 module.exports.edit = async (req, res) => {
     const id = req.params.id;
     const product = await Product.findOne({ _id: id });
+    const category = await Category.find({ deleted: false });
+    const tree = createTree.tree(category);
+
     res.render('./admin/pages/products/edit', {
         pageTitle: 'Edit Product',
         product: product,
+        tree: tree,
     });
 }
 

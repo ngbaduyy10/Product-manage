@@ -1,0 +1,16 @@
+extends ../../layout/layout.pug
+
+block main
+    h1.mb-4 Edit Role
+    form(
+        action=`${role.id}?_method=PATCH`
+        method='POST'
+    )
+        .mb-3
+            label.form-label(for='title') Title
+            input#title.form-control(type='text' name='title' value=role.title required)
+        .mb-3
+            label.form-label(for='description') Description
+            textarea#description.form-control(rows='4' name='description') #{role.description}
+
+        button.btn.btn-success(type='submit') Update
