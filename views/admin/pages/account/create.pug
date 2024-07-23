@@ -1,0 +1,27 @@
+extends ../../layout/layout.pug
+include ../../../mixins/alert.pug
+
+block main
+    +alert-error
+
+    form( action='create', method='POST' )
+        .mb-3
+            label.form-label(for='fullName') Full Name
+            input#fullName.form-control(type='text' name='fullName')
+        .mb-3
+            label.form-label(for='email') Email address
+            input#email.form-control(type='email' name='email')
+        .mb-3
+            label.form-label(for='password') Password
+            input#password.form-control(type='password' name='password')
+        .mb-3
+            label.form-label(for='phone') Phone
+            input#phone.form-control(type='text' name='phone')
+        .mb-3
+            label.form-label(for='role_id') Role
+            select#role_id.form-select(name='role_id')
+                option(value='') -- Select role --
+                each role in roles
+                    option(value=role.id) #{role.title}
+
+        button.btn.btn-primary(type='submit') Submit

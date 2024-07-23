@@ -1,0 +1,78 @@
+extends ../../layout/layout.pug
+include ../../../mixins/alert.pug
+
+block main
+    +alert-success
+
+    if (roles)
+        div(data-roles=roles)
+
+        a.btn.btn-outline-primary.mb-4(type='button' button-submit) Update permissions
+
+        table.table.table-hover.table-sm(table-permissions)
+            thead
+                tr
+                    th(scope='col') Permissions
+                    each item in roles
+                        th.text-center(scope='col') #{item.title}
+            tbody
+                tr.d-none(data-name="id")
+                    td ID
+                    each item in roles
+                        td.text-center
+                            input(type='text' value=item.id)
+                tr
+                    th(colspan="4") Category
+                tr(data-name="category_view")
+                    td View
+                    each item in roles
+                        td.text-center
+                            input(type='checkbox')
+                tr(data-name="category_add")
+                    td Add
+                    each item in roles
+                        td.text-center
+                            input(type='checkbox')
+                tr(data-name="category_edit")
+                    td Edit
+                    each item in roles
+                        td.text-center
+                            input(type='checkbox')
+                tr(data-name="category_delete")
+                    td Delete
+                    each item in roles
+                        td.text-center
+                            input(type='checkbox')
+
+                tr
+                    th(colspan="4") Product
+                tr(data-name="product_view")
+                    td View
+                    each item in roles
+                        td.text-center
+                            input(type='checkbox')
+                tr(data-name="product_add")
+                    td Add
+                    each item in roles
+                        td.text-center
+                            input(type='checkbox')
+                tr(data-name="product_edit")
+                    td Edit
+                    each item in roles
+                        td.text-center
+                            input(type='checkbox')
+                tr(data-name="product_delete")
+                    td Delete
+                    each item in roles
+                        td.text-center
+                            input(type='checkbox')
+
+
+    form(
+        action='/admin/roles/permissions?_method=PATCH',
+        method='POST',
+        id='form-permissions'
+    )
+        input.d-none(type='text', name='permissions' id='input-permissions')
+
+    script(src='/admin/js/permissions.js')

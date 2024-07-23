@@ -4,3 +4,10 @@ mixin alert-success
             div(class="alert alert-success")
                 div #{messages.info}
                 button.btn-close(type='button', aria-label='Close' close-alert)
+
+mixin alert-error
+    - if (messages.error)
+        .message.error(success-alert)
+            div(class="alert alert-danger")
+                div #{messages.error}
+                button.btn-close(type='button', aria-label='Close' close-alert)
