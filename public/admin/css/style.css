@@ -2,6 +2,7 @@
     position: sticky;
     top: 0;
     z-index: 99;
+    background: #343434;
 }
 
 .content {
@@ -13,14 +14,14 @@
     height: calc(100vh - 70px);
     position: sticky;
     top: 70px;
-    background-color: black;
+    background-color: #595454;
 }
 
 .sider__menu a {
     padding: 10px 0;
     color: white;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px;
     border-bottom: white solid 1px;
     display: flex;
     align-items: center;

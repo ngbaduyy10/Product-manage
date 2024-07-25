@@ -34,6 +34,9 @@ app.use(flash());
 const path = require('path');
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
+const moment = require('moment');
+app.locals.moment = moment;
+
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 

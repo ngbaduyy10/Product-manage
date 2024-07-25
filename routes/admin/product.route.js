@@ -25,7 +25,13 @@ router.post(
 
 router.get('/edit/:id', productController.edit);
 
-router.patch('/edit/:id', upload.single('thumbnail'), validate.createPost, productController.editPatch);
+router.patch(
+    '/edit/:id',
+    upload.single('thumbnail'),
+    middleware.uploadCloud,
+    validate.createPost,
+    productController.editPatch
+);
 
 router.get('/detail/:slug', productController.detail);
 

@@ -38,6 +38,7 @@ block main
                 th(scope='col') Thumbnail
                 th(scope='col') Title
                 th(scope='col') Price
+                th(scope='col') Created By
                 th(scope='col') Action
         tbody
             each item, index in products
@@ -49,6 +50,9 @@ block main
                         img(src=`${item.thumbnail}`, alt=item.title, height='100')
                     td #{item.title}
                     td #{item.price}$
+                    td
+                        p #{item.accountName}
+                        p #{moment(item.createdBy.createdAt).format('DD/MM/YYYY, HH:mm:ss')}
                     td
                         a.btn.btn-warning(href=`products/detail/${item.slug}`) Detail
                         a.btn.btn-primary(href=`products/edit/${item.id}`) Edit

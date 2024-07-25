@@ -1,8 +1,13 @@
 sider.sider
    .sider__menu
         a(href=`${prefixAdmin}/dashboard`) Dashboard
-        a(href=`${prefixAdmin}/products`) Products
-        a(href=`${prefixAdmin}/category`) Category
+
+        if (role.permissions.includes('product_view'))
+          a(href=`${prefixAdmin}/products`) Products
+
+        if (role.permissions.includes('category_view'))
+          a(href=`${prefixAdmin}/category`) Category
+
         a(href=`${prefixAdmin}/roles`) Roles
         a(href=`${prefixAdmin}/roles/permissions`) Permissions
         a(href=`${prefixAdmin}/account`) Account

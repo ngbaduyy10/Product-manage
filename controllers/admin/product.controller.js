@@ -1,5 +1,6 @@
 const Product = require('../../models/product.model');
 const Category = require('../../models/category.model');
+const Account = require('../../models/account.model');
 const createTree = require('../../helpers/createTree');
 const searchHelper = require('../../helpers/searchHelper');
 const paginationHelper = require('../../helpers/paginationHelper');
@@ -25,6 +26,13 @@ module.exports.index = async (req, res) => {
     }
 
     const products = await Product.find(find).limit(pagination.limit).skip(pagination.skip).sort(sort);
+
+    for (let product of products) {
+        const user = await Account.findOne({ _id: product.createdBy.account_id });
+        if (user) {
+            product.accountName = user.fullName;
+        }
+    }
 
     res.render('./admin/pages/products/index', {
         pageTitle: 'Product',
@@ -61,6 +69,9 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.createdBy = {
+        account_id: res.locals.user.id,
+    }
     const product = new Product(req.body);
     await product.save();
     req.flash('info', 'Create success!');
@@ -82,10 +93,14 @@ module.exports.edit = async (req, res) => {
 
 module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
-    if (req.file) {
-        req.body.thumbnail = "/uploads/" + req.file.filename;
+    const update = {
+        account_id: res.locals.user.id,
+        updatedAt: new Date(),
     }
-    await Product.updateOne({ _id: id }, req.body);
+    await Product.updateOne({ _id: id }, {
+        ...req.body,
+        $push: { updatedBy: update }
+    });
     req.flash('info', 'Edit success!');
     res.redirect('/admin/products');
 }
