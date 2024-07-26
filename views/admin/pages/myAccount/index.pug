@@ -1,0 +1,21 @@
+extends ../../layout/layout.pug
+include ../../../mixins/alert.pug
+
+block main
+    +alert-success
+
+    h1.mb-5 Personal Information
+    .card
+        .card-header
+            h2 #{user.fullName}
+        .card-body
+            p
+                strong Email:
+                |  #{user.email}
+            p
+                strong Phone:
+                |  #{user.phone}
+            p
+                strong Role:
+                |  #{role.title}
+            a.btn.btn-warning(href="/admin/my-account/edit") Edit

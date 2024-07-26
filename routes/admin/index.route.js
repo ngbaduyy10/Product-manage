@@ -4,6 +4,7 @@ const categoryRoutes = require('./category.route');
 const rolesRoutes = require('./roles.route');
 const accountRoutes = require('./account.route');
 const authRoutes = require('./auth.route');
+const myAccountRoutes = require('./myAccount.route');
 const authMiddleware = require('../../middleware/auth.middleware');
 
 module.exports = (app) => {
@@ -16,6 +17,8 @@ module.exports = (app) => {
     app.use('/admin/roles', authMiddleware.authRequired, rolesRoutes);
 
     app.use('/admin/account', authMiddleware.authRequired, accountRoutes);
+
+    app.use('/admin/my-account', authMiddleware.authRequired, myAccountRoutes);
 
     app.use('/admin/auth', authRoutes);
 }

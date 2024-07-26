@@ -10,6 +10,6 @@ router.post('/create', accountController.createPost);
 
 router.get('/edit/:id', accountController.edit);
 
-router.patch('/edit/:id', accountController.editPost);
+router.patch('/edit/:id', accountController.editPatch);
 
 module.exports = router;

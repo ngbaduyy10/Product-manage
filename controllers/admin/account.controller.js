@@ -51,7 +51,7 @@ module.exports.edit = async (req, res) => {
     });
 }
 
-module.exports.editPost = async (req, res) => {
+module.exports.editPatch = async (req, res) => {
     const emailExist = await Account.findOne({
         email: req.body.email,
         _id: { $ne: req.params.id },
