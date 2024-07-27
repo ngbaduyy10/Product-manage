@@ -5,7 +5,7 @@ const multer  = require('multer')
 const upload = multer();
 const productController = require('../../controllers/admin/product.controller');
 const validate = require('../../validates/product.validate');
-const middleware = require('../../middleware/middleware');
+const middleware = require('../../middleware/admin/middleware');
 
 router.get('/', productController.index);
 

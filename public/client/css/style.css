@@ -31,3 +31,26 @@
 .sub-menu ul li:hover > ul {
     display: block;
 }
+
+.product-item:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+[success-alert] {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    width: 300px;
+}
+
+[success-alert].hidden {
+    display: none;
+}
+
+[success-alert] .alert {
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

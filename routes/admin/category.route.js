@@ -5,7 +5,7 @@ const validate = require('../../validates/product.validate');
 
 const multer  = require('multer');
 const upload = multer();
-const middleware = require('../../middleware/middleware');
+const middleware = require('../../middleware/admin/middleware');
 
 router.get('/', categoryController.index);
 

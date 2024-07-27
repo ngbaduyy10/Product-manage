@@ -2,6 +2,6 @@ mixin sub-menu(tree)
     ul.navbar-nav.me-auto
         each item in tree
             li.nav-item
-                a.nav-link(href="#")= item.title
+                a.nav-link(href=`/products/${item.slug}`)= item.title
                 if item.children && item.children.length > 0
                     +sub-menu(item.children)
