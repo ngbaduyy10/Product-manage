@@ -35,3 +35,21 @@ module.exports.login = async (req, res, next) => {
     }
     next();
 }
+
+module.exports.forgotPassword = async (req, res, next) => {
+    if (!req.body.email) {
+        req.flash('error', 'Email is required!');
+        res.redirect('back');
+        return;
+    }
+    next();
+}
+
+module.exports.otp = async (req, res, next) => {
+    if (!req.body.otp) {
+        req.flash('error', 'OTP is required!');
+        res.redirect('back');
+        return;
+    }
+    next();
+}
