@@ -54,3 +54,7 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.cart-list td {
+    vertical-align: middle;
+}

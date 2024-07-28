@@ -1,8 +1,9 @@
 extends ../../layout/layoutDefault
+include ../../../mixins/alert.pug
 
 block content
-  .container
-    .row
-      .col-md-12
+    +alert-success
+
+    .container.my-4
         h1 Home Page
         p Welcome to the home page

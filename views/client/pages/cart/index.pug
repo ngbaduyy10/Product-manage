@@ -7,7 +7,7 @@ block content
     if (cart.cartItems.length > 0)
         .container.my-4
             h1.mb-5 Cart
-            table.table.table-bordered
+            table.table
                 thead
                     tr.text-center
                         th(style='width: 5%') No
@@ -19,27 +19,27 @@ block content
                         th(style='width: 10%') Action
                 tbody
                     each item, index in products
-                        tr
-                            td #{index + 1}
+                        tr.cart-list
+                            td.text-center #{index + 1}
                             td
                                 img(src=item.productDetail.thumbnail alt=`${item.productDetail.title}` style='width: 100%')
                             td #{item.productDetail.title}
-                            td #{item.productDetail.price}$
-                            td
+                            td.text-center #{item.productDetail.price}$
+                            td.text-center
                                 input.form-control(style='width: 100%' input-quantity=item.productDetail.id name='quantity' type='number' value=`${item.quantity}` min='1' max='10')
-                            td #{item.productDetail.price * item.quantity}$
-                            td
+                            td.text-center #{item.productDetail.price * item.quantity}$
+                            td.text-center
                                 a.btn.btn-danger(href=`/cart/delete/${item.productDetail.id}`) Remove
                 tfoot
                     tr
                         td(colspan='4')
                             h3 Total
-                        td
-                            span <b>#{cart.totalQuantity}</b>
-                        td
-                            h3 #{totalPrice}$
-                        td
-                            a.btn.btn-danger(href=`#`) Remove all
+                        td.text-center
+                            h5 #{cart.totalQuantity}
+                        td.text-center
+                            h3(style='color: red') #{totalPrice}$
+                        td.text-center
+                            a.btn.btn-success.w-100(href=`/checkout`) Place order
     else
         .container.my-4
             h3 Your cart is empty
