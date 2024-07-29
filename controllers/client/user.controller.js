@@ -80,8 +80,26 @@ module.exports.otpPost = async (req, res) => {
     const { email, otp } = req.body;
     const forgotPassword = await ForgotPassword.findOne({ email: email, otp: otp });
 
-    if (!forgotPassword) {
+    if (forgotPassword == null) {
         req.flash('error', 'OTP is incorrect');
         res.redirect('back');
     }
+
+    const user = await User.findOne({ email: email });
+    res.cookie('passwordToken', user.userToken);
+    res.redirect('/user/password/reset');
+}
+
+module.exports.resetPassword = async (req, res) => {
+    res.render('client/pages/user/resetPassword', {
+        pageTitle: 'Reset Password',
+    });
+}
+
+module.exports.resetPasswordPost = async (req, res) => {
+    const password = req.body.password;
+    await User.updateOne({ userToken: req.cookies.passwordToken}, { password: md5(password) });
+    res.clearCookie('passwordToken');
+    req.flash('info', 'Reset password successfully!');
+    res.redirect('/user/login');
 }

@@ -53,3 +53,17 @@ module.exports.otp = async (req, res, next) => {
     }
     next();
 }
+
+module.exports.resetPassword = async (req, res, next) => {
+    if (!req.body.password || !req.body.confirmPassword) {
+        req.flash('error', 'Password is required!');
+        res.redirect('back');
+        return;
+    }
+    if (req.body.password !== req.body.confirmPassword) {
+        req.flash('error', 'Password is not match!');
+        res.redirect('back');
+        return;
+    }
+    next();
+}

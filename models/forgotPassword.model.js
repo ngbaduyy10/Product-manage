@@ -10,7 +10,7 @@ const forgotPasswordSchema = new mongoose.Schema({
     expireAt: {
         type: Date,
         default: Date.now(),
-        expires: 60,
+        expires: 120,
     },
 }, {
     timestamps: true,
