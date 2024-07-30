@@ -75,3 +75,17 @@
     border-color: transparent;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 }
+
+#chat2 .inner-form span {
+    cursor: pointer;
+}
+
+.tooltip {
+    visibility: hidden;
+}
+
+.tooltip.shown {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s;
+}

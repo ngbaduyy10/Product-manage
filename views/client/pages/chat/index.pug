@@ -22,9 +22,15 @@ block content
                                         div
                                             p.small.p-2.me-2.mb-1.text-white.rounded-3.bg-primary #{chat.message}
                                         img(src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp', alt='avatar 1', style='width: 45px; height: 100%;')
+                            .box-typing
                         .card-footer.text-muted.d-flex.justify-content-start.align-items-center.p-3
                             img(src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp', alt='avatar 3', style='width: 40px; height: 100%;')
                             form.inner-form.d-flex.w-100
-                                input.form-control.mx-2(type='text', placeholder='Type message')
+                                input.form-control.mx-2(type='text', placeholder='Type message' required)
+                                span.d-flex.align-items-center.button-icon(style='padding: 1px 6px; color: #007bff')
+                                    i.fa.fa-pencil(style='font-size: 1.3rem;')
                                 button(type='submit' style='border: none; background: none; color: #007bff;')
-                                    i.fas.fa-paper-plane(style='font-size: 1.3rem;')
+                                    i.fa.fa-paper-plane(style='font-size: 1.3rem;')
+
+    .tooltip(role='tooltip')
+        emoji-picker(class='light')
