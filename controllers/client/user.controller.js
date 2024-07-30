@@ -1,6 +1,7 @@
 const User = require('../../models/user.model');
 const ForgotPassword = require('../../models/forgotPassword.model');
 const md5 = require('md5');
+const sendMailHelper = require('../../helpers/sendMailHelper');
 
 module.exports.register = async (req, res) => {
     res.render('client/pages/user/register', {
@@ -65,6 +66,11 @@ module.exports.forgotPasswordPost = async (req, res) => {
 
     const forgotPassword = await new ForgotPassword({ email: email });
     await forgotPassword.save();
+
+    const subject = 'Get OTP to reset password';
+    const html = `<p>Your OTP is: <b>${forgotPassword.otp}</b></p>`;
+    await sendMailHelper.sendMail(email, subject, html);
+
     res.redirect(`/user/password/otp?email=${email}`);
 }
 

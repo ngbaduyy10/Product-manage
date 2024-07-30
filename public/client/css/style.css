@@ -58,3 +58,20 @@
 .cart-list td {
     vertical-align: middle;
 }
+
+#chat2 .card-body {
+    overflow: auto;
+}
+
+#chat2 .card-header {
+    background-color: #ecebeb;
+}
+
+#chat2 .card-footer {
+    background-color: #ecebeb;
+}
+
+#chat2 .form-control:focus {
+    border-color: transparent;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+}

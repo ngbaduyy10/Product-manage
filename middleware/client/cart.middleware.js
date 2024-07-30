@@ -4,7 +4,7 @@ module.exports.createCart = async (req, res, next) => {
     if (!req.cookies.cartId) {
         const cart = await new Cart();
         await cart.save();
-        res.cookie('cartId', cart.id, {
+        await res.cookie('cartId', cart.id, {
             maxAge: 1000 * 60 * 60 * 24 * 365,
             httpOnly: true,
         });

@@ -13,6 +13,12 @@ database.connect();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+global._io = io;
+
 const clientRoutes = require('./routes/client/index.route');
 const adminRoutes = require('./routes/admin/index.route');
 
@@ -45,6 +51,6 @@ app.use(express.static(`${__dirname}/public`));
 clientRoutes(app);
 adminRoutes(app);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })

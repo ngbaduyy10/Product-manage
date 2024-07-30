@@ -14,8 +14,9 @@ header(style='position:sticky; top:0; z-index:1000;')
                 input.form-control.me-1(type='search', placeholder='Search', name='keyword' value=keyword)
                 button.btn.btn-outline-success(type='submit') Search
         .col-3.d-flex.justify-content-end(style='gap: 5px;')
-            a.btn.btn-outline-warning(href='/cart') Cart (#{cart.totalQuantity || 0})
+            a.btn.btn-outline-warning(href='/cart') Cart (#{cart ? cart.totalQuantity : 0})
             if (user)
+                a.btn.btn-secondary(href='/chat') Chat
                 a.btn.btn-danger(href='/user/logout') Logout
             else
                 a.btn.btn-primary(href='/user/login') Login
