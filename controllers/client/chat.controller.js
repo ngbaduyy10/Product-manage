@@ -1,33 +1,9 @@
 const Chat = require('../../models/chat.model');
 const User = require('../../models/user.model');
+const chatSocket = require('../../sockets/client/chat.socket');
 
 module.exports.index = async (req, res) => {
-    const userId = res.locals.user.id;
-    const userName = res.locals.user.fullName;
-
-    _io.once('connection', (socket) => {
-        socket.on('CLIENT_SEND_MASSAGE', async (message) => {
-            const chat = await new Chat({
-                user_id: userId,
-                message: message,
-            });
-            await chat.save();
-
-            _io.emit('SERVER_RETURN_MASSAGE', {
-                user_id: userId,
-                userName: userName,
-                message: message,
-            });
-        });
-
-        socket.on('CLIENT_SEND_TYPING', async (option) => {
-           socket.broadcast.emit('SERVER_RETURN_TYPING', {
-                user_id: userId,
-                userName: userName,
-                option: option,
-           });
-        });
-    });
+    await chatSocket(res);
 
     const chats = await Chat.find({});
     for (let chat of chats) {
