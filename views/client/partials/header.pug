@@ -16,7 +16,8 @@ header(style='position:sticky; top:0; z-index:1000;')
         .col-3.d-flex.justify-content-end(style='gap: 5px;')
             a.btn.btn-outline-warning(href='/cart') Cart (#{cart ? cart.totalQuantity : 0})
             if (user)
-                a.btn.btn-secondary(href='/chat') Chat
+                a.btn.btn-secondary(href='/users/friend') Friend
+                a.btn.btn-dark(href='/room-chat') Room Chat
                 a.btn.btn-danger(href='/user/logout') Logout
             else
                 a.btn.btn-primary(href='/user/login') Login

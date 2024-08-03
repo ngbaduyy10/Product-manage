@@ -1,4 +1,5 @@
 const User = require('../../models/user.model');
+const RoomChat = require('../../models/roomChat.model')
 
 module.exports = async (res) => {
     const userId = res.locals.user.id;
@@ -39,7 +40,7 @@ module.exports = async (res) => {
                 userId: userId,
             });
 
-            socket.broadcast.emit('SERVER_DELETE_INFO', {
+            socket.broadcast.emit('SERVER_DELETE_USER_LIST_INFO', {
                 friendId: friendId,
                 userId: userId,
             });
@@ -73,24 +74,38 @@ module.exports = async (res) => {
                 length: length,
             });
 
-            socket.broadcast.emit('SERVER_DELETE_INFO', {
+            socket.broadcast.emit('SERVER_DELETE_ACCEPT_INFO', {
                 friendId: friendId,
                 userId: userId,
             });
         });
 
         socket.on('CLIENT_ACCEPT_FRIEND', async (friendId) => {
+            const roomChat = await new RoomChat({
+                roomType: 'friend',
+                members: [
+                    {
+                        user_id: userId,
+                        role: 'admin',
+                    },
+                    {
+                        user_id: friendId,
+                        role: 'admin',
+                    },
+                ]
+            });
+            await roomChat.save();
+
             const existAccept = await User.findOne({
                 _id: userId,
                 acceptList: friendId,
             });
-
             if (existAccept) {
                 await User.updateOne({_id: userId}, {
                     $push: {
                         friendList: {
                             user_id: friendId,
-                            room_id: '',
+                            room_id: roomChat.id,
                         }
                     },
                     $pull: {acceptList: friendId},
@@ -101,13 +116,12 @@ module.exports = async (res) => {
                 _id: friendId,
                 requestList: userId,
             });
-
             if (existRequest) {
                 await User.updateOne({_id: friendId}, {
                     $push: {
                         friendList: {
                             user_id: userId,
-                            room_id: '',
+                            room_id: roomChat.id,
                         }
                     },
                     $pull: {requestList: userId},

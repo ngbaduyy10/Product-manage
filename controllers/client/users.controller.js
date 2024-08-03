@@ -62,15 +62,20 @@ module.exports.accept = async (req, res) => {
 
 module.exports.friend = async (req, res) => {
     const myId = res.locals.user.id;
-    const user = await User.findById(myId).select('friendList');
-    const friendList = user.friendList.map(item => item.user_id);
+    const myUser = await User.findById(myId).select('friendList');
+    const friendListId = myUser.friendList.map(item => item.user_id);
     const users = await User.find({
-        _id: {$in: friendList},
+        _id: {$in: friendListId},
         deleted: false,
-    }).select('fullName');
+    }).select('fullName statusOnline');
+
+    users.forEach(user => {
+        const infoUser = myUser.friendList.find(item => item.user_id === user.id);
+        user.roomChatId = infoUser.room_id;
+    })
 
     res.render('client/pages/users/friend', {
-        pageTitle: 'Accept List',
+        pageTitle: 'Friend List',
         users: users,
     })
 }

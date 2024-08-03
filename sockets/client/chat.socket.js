@@ -1,11 +1,14 @@
 const uploadToCloud = require("../../helpers/uploadToCloud");
 const Chat = require("../../models/chat.model");
 
-module.exports = async (res) => {
+module.exports = async (req, res) => {
     const userId = res.locals.user.id;
     const userName = res.locals.user.fullName;
+    const roomChatId = req.params.roomChatId;
 
     _io.once('connection', (socket) => {
+        socket.join(roomChatId);
+
         socket.on('CLIENT_SEND_MASSAGE', async (data) => {
             let images = [];
             if (data.images) {
@@ -17,12 +20,13 @@ module.exports = async (res) => {
 
             const chat = await new Chat({
                 user_id: userId,
+                room_id: roomChatId,
                 message: data.message,
                 images: images,
             });
             await chat.save();
 
-            _io.emit('SERVER_RETURN_MASSAGE', {
+            _io.to(roomChatId).emit('SERVER_RETURN_MASSAGE', {
                 user_id: userId,
                 userName: userName,
                 message: data.message,
@@ -31,7 +35,7 @@ module.exports = async (res) => {
         });
 
         socket.on('CLIENT_SEND_TYPING', async (option) => {
-            socket.broadcast.emit('SERVER_RETURN_TYPING', {
+            socket.to(roomChatId).emit('SERVER_RETURN_TYPING', {
                 user_id: userId,
                 userName: userName,
                 option: option,

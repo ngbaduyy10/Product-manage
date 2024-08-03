@@ -7,10 +7,10 @@ block content
                 include ../../partials/friendButton.pug
         .row.d-flex.justify-content-center.mb-3
             .col-md-10.col-lg-8.col-xl-6
-                .row
+                .row(friends-list=user.id)
                     each user in users
-                        .col-6
-                            .d-flex.align-items-center(style='gap: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 10px;')
+                        .col-6(friend-data-id=user.id)
+                            .d-flex.align-items-center.position-relative(style='gap: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 10px;')
                                 .img
                                     img(
                                         src='https://miamistonesource.com/wp-content/uploads/2018/05/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg'
@@ -18,6 +18,10 @@ block content
                                     )
                                 .body
                                     h5 #{user.fullName}
+                                    a.btn.btn-primary.btn-sm(href=`/chat/${user.roomChatId}`) Message
+                                span.status-badge.position-absolute.top-0.start-100.translate-middle.p-2.bg-success.border.border-light.rounded-circle(
+                                    style={display: user.statusOnline === "online" ? "block" : "none"}
+                                )
 
 block script
     script(src='/client/js/users.js')

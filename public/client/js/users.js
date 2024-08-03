@@ -36,6 +36,11 @@ if (acceptList) {
                 item.classList.remove('regretted');
                 const friendId = acceptButton.getAttribute('accept-id');
 
+                const lengthBadge = document.querySelector('[length-badge]');
+                if (lengthBadge) {
+                    lengthBadge.innerHTML = `${parseInt(lengthBadge.innerHTML) - 1}`;
+                }
+
                 socket.emit("CLIENT_ACCEPT_FRIEND", friendId);
             });
         }
@@ -108,6 +113,11 @@ socket.on('SERVER_RETURN_INFO', (data) => {
                     acceptButton.closest('.accept-list').classList.remove('regretted');
                     const friendId = acceptButton.getAttribute('accept-id');
 
+                    const lengthBadge = document.querySelector('[length-badge]');
+                    if (lengthBadge) {
+                        lengthBadge.innerHTML = `${parseInt(lengthBadge.innerHTML) - 1}`;
+                    }
+
                     socket.emit("CLIENT_ACCEPT_FRIEND", friendId);
                 });
             }
@@ -133,7 +143,7 @@ socket.on('SERVER_RETURN_INFO', (data) => {
 //End Return Info
 
 //Delete Info
-socket.on('SERVER_DELETE_INFO', (data) => {
+socket.on('SERVER_DELETE_ACCEPT_INFO', (data) => {
    const acceptInfo = document.querySelector('[accept-info]');
     if (acceptInfo) {
         const id = acceptInfo.getAttribute('accept-info');
@@ -144,7 +154,9 @@ socket.on('SERVER_DELETE_INFO', (data) => {
             }
         }
     }
+});
 
+socket.on('SERVER_DELETE_USER_LIST_INFO', (data) => {
     const usersList = document.querySelector('[users-list-info]');
     if (usersList) {
         const id = usersList.getAttribute('users-list-info');
@@ -157,3 +169,27 @@ socket.on('SERVER_DELETE_INFO', (data) => {
     }
 });
 //End Delete info
+
+//Status Online
+socket.on('SERVER_RETURN_STATUS_ONLINE', (data) => {
+    const friendsList = document.querySelector('[friends-list]');
+    if (friendsList) {
+        const onlineBox = friendsList.querySelector(`[friend-data-id="${data}"]`);
+        const statusBadge = onlineBox.querySelector('.status-badge');
+        if (statusBadge) {
+            statusBadge.style.display = 'block';
+        }
+    }
+});
+
+socket.on('SERVER_RETURN_STATUS_OFFLINE', (data) => {
+    const friendsList = document.querySelector('[friends-list]');
+    if (friendsList) {
+        const onlineBox = friendsList.querySelector(`[friend-data-id="${data}"]`);
+        const statusBadge = onlineBox.querySelector('.status-badge');
+        if (statusBadge) {
+            statusBadge.style.display = 'none';
+        }
+    }
+});
+//End Status Online

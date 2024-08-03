@@ -40,12 +40,22 @@ module.exports.loginPost = async (req, res) => {
         req.flash('error', 'Password is incorrect');
         res.redirect('/user/login');
     } else {
+        await User.updateOne({ userToken: user.userToken }, { statusOnline: 'online'});
+        _io.once('connection', (socket) => {
+            socket.broadcast.emit('SERVER_RETURN_STATUS_ONLINE',user.id);
+        });
+
         res.cookie('userToken', user.userToken);
         res.redirect('/');
     }
 }
 
 module.exports.logout = async (req, res) => {
+    await User.updateOne({ userToken: req.cookies.userToken }, { statusOnline: 'offline'});
+    _io.once('connection', (socket) => {
+       socket.broadcast.emit('SERVER_RETURN_STATUS_OFFLINE', res.locals.user.id);
+    });
+
     res.clearCookie('userToken');
     res.redirect('/');
 }

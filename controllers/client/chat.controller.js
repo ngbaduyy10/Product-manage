@@ -3,9 +3,10 @@ const User = require('../../models/user.model');
 const chatSocket = require('../../sockets/client/chat.socket');
 
 module.exports.index = async (req, res) => {
-    await chatSocket(res);
+    await chatSocket(req, res);
 
-    const chats = await Chat.find({});
+    const roomChatId = req.params.roomChatId;
+    const chats = await Chat.find({room_id: roomChatId}).sort({createdAt: 1});
     for (let chat of chats) {
         const user = await User.findOne({_id: chat.user_id}).select('fullName');
         chat.userName = user.fullName;

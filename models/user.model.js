@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     ],
     requestList: Array,
     acceptList: Array,
+    statusOnline: String,
     userToken: {
         type: String,
         default: generateToken.generateToken(20),
