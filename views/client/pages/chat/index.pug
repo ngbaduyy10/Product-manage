@@ -3,6 +3,9 @@ extends ../../layout/layoutDefault.pug
 block content
     section
         .container.py-3
+            .row.d-flex.justify-content-center.mb-3
+                .col-md-10.col-lg-8.col-xl-6
+                    include ../../partials/friendButton.pug
             .row.d-flex.justify-content-center
                 .col-md-10.col-lg-8.col-xl-6
                     #chat2.card(my-id=user.id)
@@ -46,3 +49,6 @@ block content
 
     .tooltip(role='tooltip')
         emoji-picker(class='light')
+
+block script
+    script(type="module" src="/client/js/chat.js")

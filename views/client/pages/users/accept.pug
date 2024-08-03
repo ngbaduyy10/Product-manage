@@ -1,0 +1,27 @@
+extends ../../layout/layoutDefault.pug
+
+block content
+    .container.py-3
+        .row.d-flex.justify-content-center.mb-3
+            .col-md-10.col-lg-8.col-xl-6
+                include ../../partials/friendButton.pug
+        .row.d-flex.justify-content-center.mb-3
+            .col-md-10.col-lg-8.col-xl-6
+                .row(accept-info=user.id)
+                    each user in usersAccept
+                        .col-6(accept-data-id=user.id)
+                            .d-flex.align-items-center.accept-list(style='gap: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 10px;')
+                                .img
+                                    img(
+                                        src='https://miamistonesource.com/wp-content/uploads/2018/05/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg'
+                                        style='width: 70px; height: auto; aspect-ratio: 1/1 object-fit: cover; border-radius: 50%;'
+                                    )
+                                .body
+                                    h5 #{user.fullName}
+                                    button.btn.btn-primary.btn-sm(accept-id=user.id) Accept
+                                    button.btn.btn-secondary.btn-sm(regret-id=user.id) Regret
+                                    button.btn.btn-primary.btn-sm.btn-accepted(disabled) Accepted
+                                    button.btn.btn-secondary.btn-sm.btn-regretted(disabled) Regretted
+
+block script
+    script(src='/client/js/users.js')

@@ -1,0 +1,11 @@
+.row
+    .col-3.px-1
+        a.btn.btn-primary.w-100(href='/users/list') User List
+    .col-3.px-1
+        a.btn.btn-primary.w-100(href='/users/friend') Friend List
+    .col-3.px-1
+        a.btn.btn-primary.w-100(href='/users/request') Request List
+    .col-3.px-1
+        a.btn.btn-primary.w-100(href='/users/accept' style='position: relative')
+            | Accept List
+            span(class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" length-badge=user.id) #{user.acceptList.length}

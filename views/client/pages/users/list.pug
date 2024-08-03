@@ -1,0 +1,25 @@
+extends ../../layout/layoutDefault.pug
+
+block content
+    .container.py-3
+        .row.d-flex.justify-content-center.mb-3
+            .col-md-10.col-lg-8.col-xl-6
+                include ../../partials/friendButton.pug
+        .row.d-flex.justify-content-center.mb-3
+            .col-md-10.col-lg-8.col-xl-6
+                .row(users-list-info=user.id)
+                    each user in users
+                        .col-6(users-list-id=user.id)
+                            .d-flex.align-items-center.users-list(style='gap: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 10px;')
+                                .img
+                                    img(
+                                        src='https://miamistonesource.com/wp-content/uploads/2018/05/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg'
+                                        style='width: 70px; height: auto; aspect-ratio: 1/1 object-fit: cover; border-radius: 50%;'
+                                    )
+                                .body
+                                    h5 #{user.fullName}
+                                    button.btn.btn-primary.btn-sm(add-friend-id=user.id) Add Friend
+                                    button.btn.btn-secondary.btn-sm(cancel-add-friend-id=user.id) Cancel Request
+
+block script
+    script(src='/client/js/users.js')

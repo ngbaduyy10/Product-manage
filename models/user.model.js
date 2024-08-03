@@ -6,6 +6,14 @@ const userSchema = new mongoose.Schema({
     email: String,
     phone: String,
     password: String,
+    friendList: [
+        {
+            user_id: String,
+            room_id: String,
+        }
+    ],
+    requestList: Array,
+    acceptList: Array,
     userToken: {
         type: String,
         default: generateToken.generateToken(20),

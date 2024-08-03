@@ -108,3 +108,40 @@
     width: 100px;
     background-size: contain;
 }
+
+.users-list [cancel-add-friend-id] {
+    display: none;
+}
+
+.users-list [add-friend-id] {
+    display: inline-block;
+}
+
+.users-list.add [add-friend-id] {
+    display: none;
+}
+
+.users-list.add [cancel-add-friend-id] {
+    display: inline-block;
+}
+
+.accept-list [accept-id] {
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.accept-list [regret-id] {
+    display: inline-block;
+}
+
+.accept-list .btn-accepted, .accept-list .btn-regretted {
+    display: none;
+}
+
+.accept-list.accepted [accept-id], .accept-list.accepted [regret-id], .accept-list.regretted [regret-id], .accept-list.regretted [accept-id] {
+    display: none;
+}
+
+.accept-list.accepted .btn-accepted, .accept-list.regretted .btn-regretted {
+    display: inline-block;
+}
