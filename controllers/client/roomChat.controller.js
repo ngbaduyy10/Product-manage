@@ -1,9 +1,16 @@
 const User = require('../../models/user.model');
 const RoomChat = require('../../models/roomChat.model');
 
-module.exports.index = (req, res) => {
+module.exports.index = async (req, res) => {
+    const userId = res.locals.user.id;
+    const roomChat = await RoomChat.find({
+        'members.user_id': userId,
+        deleted: false,
+    });
+
     res.render('client/pages/roomChat/index', {
-        pageTitle: 'Room Chat'
+        pageTitle: 'Room Chat',
+        roomChat: roomChat
     });
 }
 

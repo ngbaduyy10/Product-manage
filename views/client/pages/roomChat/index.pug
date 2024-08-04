@@ -8,13 +8,14 @@ block content
                     .col-2
                         a.btn.btn-success(href='/room-chat/create') Create Room
                 .row
-                    .col-12.mb-3
-                        .d-flex.align-items-center(style='width: 40%; gap: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 10px;')
-                            .img
-                                img(
-                                    src='https://w7.pngwing.com/pngs/973/913/png-transparent-computer-icons-online-chat-conversation-chat-room-facebook-messenger-chat-miscellaneous-blue-angle.png'
-                                    style='width: 70px; height: auto; aspect-ratio: 1/1 object-fit: cover; border-radius: 50%;'
-                                )
-                            .body
-                                h5 Room Name
-                                button.btn.btn-primary.btn-sm Message
+                    each room in roomChat
+                        .col-12.mb-3
+                            .d-flex.align-items-center(style='width: 40%; gap: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 10px;')
+                                .img
+                                    img(
+                                        src='https://w7.pngwing.com/pngs/973/913/png-transparent-computer-icons-online-chat-conversation-chat-room-facebook-messenger-chat-miscellaneous-blue-angle.png'
+                                        style='width: 70px; height: auto; aspect-ratio: 1/1 object-fit: cover; border-radius: 50%;'
+                                    )
+                                .body
+                                    h5 room.title
+                                    a.btn.btn-primary.btn-sm(href=`/chat/${room.id}`) Message
