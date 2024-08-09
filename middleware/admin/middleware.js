@@ -7,3 +7,17 @@ module.exports.uploadCloud = async (req, res, next) => {
     }
     next();
 }
+
+module.exports.uploadFields = async (req, res, next) => {
+    if (req.files) {
+        for (let file in req.files) {
+            req.body[file] = [];
+
+            const array = req.files[file];
+            for (const item of array) {
+                const result = await uploadToCloud.upload(item.buffer);
+                req.body[file].push(result);
+            }
+        }
+    }
+}
